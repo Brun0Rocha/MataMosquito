@@ -1,6 +1,21 @@
 var altura = 0
 var largura = 0
 var vidas = 1
+var tempo = 10
+
+document.querySelector('#cronometro').innerHTML = tempo
+var cronometro = setInterval(function(){
+    tempo -= 1
+    if(tempo < 0) {
+        clearInterval(cronometro)
+        clearInterval(criamosquito)
+        window.location.href = 'vitoria.html'
+    } else {
+        document.querySelector('#cronometro').innerHTML = tempo
+    }
+}, 1000)
+
+
 
 function ajustarTamanhoPalcoJogo() {
     altura = window.innerHeight
@@ -11,6 +26,7 @@ function ajustarTamanhoPalcoJogo() {
 }
 
 ajustarTamanhoPalcoJogo()
+
 
 function posicaoAleatoria() {
 
@@ -49,10 +65,10 @@ function posicaoAleatoria() {
 }
 
 
-setInterval(function(){
+var criamosquito = setInterval(function(){
     posicaoAleatoria()
 
-}, 2000)
+}, 1000)
 
 function tamanhoAleatorio() {
     var classe = Math.floor(Math.random() * 3)
