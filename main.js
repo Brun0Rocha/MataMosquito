@@ -3,24 +3,6 @@ var largura = 0
 var vidas = 1
 var tempo = 60
 var criaMosquitoTempo = 1500
-var nivel = window.location.search
-nivel = nivel.replace('?', '')
-var criamosquito = setInterval(function(){
-    posicaoAleatoria()
-
-}, criaMosquitoTempo)
-
-document.querySelector('#cronometro').innerHTML = tempo
-var cronometro = setInterval(function(){
-    tempo -= 1
-    if(tempo < 0) {
-        clearInterval(cronometro)
-        clearInterval(criamosquito)
-        window.location.href = 'vitoria.html'
-    } else {
-        document.querySelector('#cronometro').innerHTML = tempo
-    }
-}, 1000)
 
 if(nivel === 'normal') {
     criaMosquitoTempo = 1000
@@ -34,29 +16,44 @@ if(nivel === 'normal') {
 }
 
 
-
+document.querySelector('#cronometro').innerHTML = tempo
+var cronometro = setInterval(function(){
+    tempo -= 1
+    if(tempo < 0) {
+        clearInterval(cronometro)
+        clearInterval(criamosquito)
+        window.location.href = 'vitoria.html'
+    } else {
+        document.querySelector('#cronometro').innerHTML = tempo
+    }
+}, 1000)
 
 function ajustarTamanhoPalcoJogo() {
     altura = window.innerHeight
     largura = window.innerWidth
-
-    // console.log(largura, altura)
-
+    
+    
 }
 
 ajustarTamanhoPalcoJogo()
 
 function iniciarJogo() {
     var nivel = document.querySelector('#nivel').value
-
+    
     if(nivel === '') {
         alert('Selecione um nível para iniciar o jogo!')
         return false
     }
-
+    
     window.location.href = "app.html?" + nivel
 }
 
+var nivel = window.location.search
+nivel = nivel.replace('?', '')
+var criamosquito = setInterval(function(){
+    posicaoAleatoria()
+
+}, criaMosquitoTempo)
 
 function posicaoAleatoria() {
 
@@ -76,9 +73,6 @@ function posicaoAleatoria() {
     posicionX = posicionX < 0 ? 0 : posicionX
     posicionY = posicionY < 0 ? 0 : posicionY
 
-    // console.log(posicionX, posicionY)
-
-
     var mosquito = document.createElement('img')
     mosquito.src = '/imagens/mosca.png'
     mosquito.className = tamanhoAleatorio() + ' ' + ladoAleatorio()
@@ -87,14 +81,12 @@ function posicaoAleatoria() {
     mosquito.style.position = 'absolute'
     mosquito.id = 'mosquito'
     mosquito.onclick = function() {
-        this.remove()
+        this.remove() 
     }
-
-    document.body.appendChild(mosquito)
     
+    document.body.appendChild(mosquito)
+
 }
-
-
 
 function tamanhoAleatorio() {
     var classe = Math.floor(Math.random() * 3)
